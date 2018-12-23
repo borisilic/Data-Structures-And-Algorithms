@@ -10,29 +10,41 @@ public class WordPuzzleTest {
 
     public static void main(String[] args) {
 //        testSetupPuzzle();
-        testSetupWords();
+//        testSetupDictionary();
+        testFindWords();
     }
 
-    public static void testSetupPuzzle() {
+    private static void testSetupPuzzle() {
         WordPuzzle wordPuzzle = new WordPuzzle();
 
         Map<Integer, Character[]> rows = wordPuzzle.setupPuzzle(new ArrayList<>());
 
-        for (int i = 1; i <= rows.size(); i++) {
-            Character[] characters = rows.get(i);
-            System.out.println("Character at i: " + characters[i]);
+        for (int row = 1; row <= rows.size(); row++) {
+            Character[] characters = rows.get(row);
+            System.out.println("Character at row: " + characters[row - 1]);
             System.out.println(Arrays.toString(characters));
         }
     }
 
-    public static void testSetupWords() {
+    private static void testSetupDictionary() {
         WordPuzzle wordPuzzle = new WordPuzzle();
 
         try {
-            List<String> words = wordPuzzle.setupWords();
+            List<String> words = wordPuzzle.setupDictionary();
+//            for (int i = 0; i < words.size(); i++) {
+//                System.out.println(words.get(i));
+//            }
             assert !words.isEmpty();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static void testFindWords() {
+        WordPuzzle wordPuzzle = new WordPuzzle();
+
+        List<String> foundWords = wordPuzzle.findWords(wordPuzzle.setupPuzzle(new ArrayList<>()));
+
+        foundWords.forEach(System.out::println);
     }
 }
